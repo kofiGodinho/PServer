@@ -1,0 +1,29 @@
+import socket
+import time
+
+IPAddress='127.0.0.1'
+Port=6500
+
+client_count=0
+
+Listener = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+Listener.bind((IPAddress,Port))
+
+clients=[]
+
+while client_count<2:
+    print("Listening...")
+    data, client_address=Listener.recvfrom(1024)
+    clientData=[client_address]
+    time.sleep(2)
+
+    print("Client Data:"+str(data))
+    print("Client Address: "+str(client_address))
+    clients.append(client_address)
+    client_count+=1
+print ("Swapping starts")
+response_client_1= clients[0][0]+":"+str(clients[0][1])
+response_client_0= clients[1][0]+":"+str(clients[1][1])
+Listener.sendto(str.encode(response_client_0),clients[0])
+time.sleep(1)
+Listener.sendto(str.encode(response_client_1),clients[1])
