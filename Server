@@ -1,7 +1,7 @@
 import socket
 import time
 
-IPAddress='127.0.0.1'
+IPAddress=''
 Port=6500
 
 client_count=0
